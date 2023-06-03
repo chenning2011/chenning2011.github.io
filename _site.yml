@@ -1,0 +1,23 @@
+---
+name: "One Year (+2 months) of Us <3"
+navbar:
+  title: "One Year (+2 months) of Us <3"
+  left:
+    - text: "Start Here"
+      href: index.html
+    - text: "Calendars"
+      href: about.html
+    - text: "Dates"
+      href: dates.html
+    - text: "Graphs"
+      href: graphs.html
+    - text: "Maps"
+      href: maps.html
+output:
+  html_document:
+    theme: cerulean
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+---
