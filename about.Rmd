@@ -1,0 +1,428 @@
+---
+title: "Calendars"
+---
+
+Here are some fun calendars with important dates highlighted! 
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE, results=FALSE}
+library(calendR)
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+### MARCH 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-03-01"), as.Date("2022-03-31"), by = "1 day")
+
+events <- rep(NA, 31)
+events[c(11, 12, 13, 14, 15)] <- "Wedding Planning"
+events[24] <- "First Night sleeping in your bed"
+events[28] <- "Official Day One"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 3,
+        start = "M",
+        special.days = events,
+        special.col = c("lightblue", "pink",  # As many colors
+                        "mediumpurple2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "The Beginning (March 2022)") 
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### APRIL 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-04-01"), as.Date("2022-04-30"), by = "1 day")
+
+events2 <- rep(NA, 30)
+events2[9] <- "Daddy Issues"
+events2[11] <- "Relationship Became Public"
+events2[20] <- "WSA Debate"
+events2[28] <- "Moved in (first month!)"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 4,
+        start = "M",
+        special.days = events2,
+        special.col = c("lightblue", "pink",  # As many colors
+                        "mediumpurple2", "orangered"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 1 (April 2022)")   
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### MAY 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-05-01"), as.Date("2022-05-31"), by = "1 day")
+
+events3 <- rep(NA, 31)
+events3[c(15, 16, 17, 18, 19)] <- "I Left :("
+events3[7] <- "Phone background photo taken & Space Joe"
+events3[10] <- "Moved all my stuff in"
+events3[1] <- "ER Trip"
+events3[14] <- "Dr. Stranger"
+events3[20] <- "ADP Reunion"
+events3[28] <- "2-month Mondo"
+
+
+
+# Creating the calendar
+calendR(year = 2022, month = 5,
+        start = "M",
+        special.days = events3,
+        special.col = c("pink", "seagreen2",  # As many colors
+                        "mediumpurple2", "orangered",
+                        "royalblue2", "plum3",
+                        "powderblue"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 2 (May 2022)")   
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### June 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-06-01"), as.Date("2022-06-30"), by = "1 day")
+
+events4 <- rep(NA, 30)
+events4[c(17, 18, 19, 20)] <- "First Visit!"
+events4[2] <- "You Left :("
+events4[19] <- "Museum of Natural History"
+events4[20] <- "1 Gnocchi 4 2"
+events4[28] <- "3rd Month!"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 6,
+        start = "M",
+        special.days = events4,
+        special.col = c("orange1", "pink",  # As many colors
+                        "mediumpurple2", "lightblue",
+                        "royalblue2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 3 (June 2022)")   
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### July 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-07-01"), as.Date("2022-07-31"), by = "1 day")
+
+events5 <- rep(NA, 31)
+events5[c(8,9,10,11)] <- "Second Visit!"
+events5[c(22,23,24,25)] <- "Third Visit!"
+events5[1] <- "Train Surprises"
+events5[23] <- "Cone Sharing"
+events5[25] <- "Pancakes and Milkshakes"
+events5[28] <- "4th Month!"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 7,
+        start = "M",
+        special.days = events5,
+        special.col = c("pink", "hotpink1",  # As many colors
+                        "mediumpurple2", "lightblue",
+                        "deepskyblue", "orange1"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 4 (July 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### August 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-08-01"), as.Date("2022-08-31"), by = "1 day")
+
+events6 <- rep(NA, 31)
+events6[2] <- "Together again :)"
+events6[5] <- "The Met"
+events6[9] <- "Your Birthday!"
+events6[16] <- "Subway Exploration"
+events6[17] <- "Date-tist & Hadestown"
+events6[18] <- "Back to Campus"
+events6[28] <- "5th Month!"
+events6[22] <- "Reading"
+events6[24] <- "Town Exploration"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 8,
+        start = "M",
+        special.days = events6,
+        special.col = c("pink", "seagreen2",  # As many colors
+                        "indianred2", "lightblue",
+                        "hotpink1", "lightskyblue",
+                        "deepskyblue", "orchid",
+                        "mediumpurple2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 5 (August 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### September 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-09-01"), as.Date("2022-09-30"), by = "1 day")
+
+events7 <- rep(NA, 30)
+events7[3] <- "Haircut x2"
+events7[5] <- "Classes started"
+events7[9] <- "Lovers Club Fair"
+events7[13] <- "Fake Fancy Gnocchi"
+events7[28] <- "6th Month!"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 9,
+        start = "M",
+        special.days = events7,
+        special.col = c("pink", "deepskyblue",  # As many colors
+                        "orange1", "lightblue",
+                        "hotpink1"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 6 (September 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### October 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-10-01"), as.Date("2022-10-31"), by = "1 day")
+
+events8 <- rep(NA, 31)
+events8[15] <- "I disappeared :("
+events8[16] <- "Pasta Reunion"
+events8[27] <- "DnD Joe"
+events8[28] <- "Spooky Library & 7th Month!"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 10,
+        start = "M",
+        special.days = events8,
+        special.col = c("deepskyblue", "lightblue",  # As many colors
+                        "orange1", "pink"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 7 (October 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### November 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-11-01"), as.Date("2022-11-30"), by = "1 day")
+
+events9 <- rep(NA, 30)
+events9[c(23,24,25,26,27)] <- "Thanksgiving Break :("
+events9[3] <- "Gay Greeks"
+events9[20] <- "My Birthday!"
+events9[28] <- "8th Month!"
+events9[11] <- "Masquerade"
+events9[12] <- "COL Formal"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 11,
+        start = "M",
+        special.days = events9,
+        special.col = c("pink", "mediumpurple2",  # As many colors
+                        "deepskyblue", "indianred2",
+                        "lightblue","lightsalmon2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 8 (November 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### December 2022 ##########
+# Vector of dates
+dates <- seq(as.Date("2022-12-01"), as.Date("2022-12-31"), by = "1 day")
+
+events10 <- rep(NA, 31)
+events10[18] <- "Winter Break"
+events10[13] <- "Painting Show"
+events10[19] <- "Library Day/Visa Appointment"
+events10[28] <- "Gestation (9th Month!)"
+events10[29] <- "Bookstore"
+events10[30] <- "The Met Part 2"
+
+
+# Creating the calendar
+calendR(year = 2022, month = 12,
+        start = "M",
+        special.days = events10,
+        special.col = c("mediumpurple2", "pink",  # As many colors
+                        "seagreen2", "lightblue",
+                        "hotpink2","deepskyblue"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 9 (December 2022)") 
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### January 2023 ##########
+# Vector of dates
+dates <- seq(as.Date("2023-01-01"), as.Date("2023-01-31"), by = "1 day")
+
+events11 <- rep(NA, 31)
+events11[c(21,22,30)] <- "No Man's Sky Dates 1, 2 & 3"
+events11[c(25,26,27,28,29)] <- "1st Visit\n (Europe Edition)"
+events11[4] <- "Little Lego Guys"
+events11[7] <- "Plane Date"
+events11[8] <- "Study Abroad \nBegan :("
+events11[28] <- "10th Month!\n LMH Day"
+events11[14] <- "Pizza Abroad"
+events11[26] <- "Classics Day"
+events11[27] <- "Libraries/Bookstore"
+
+
+# Creating the calendar
+calendR(year = 2023, month = 1,
+        start = "M",
+        special.days = events11,
+        special.col = c("pink","lightblue",
+                        "mediumpurple2","hotpink2",
+                        "gold2","deepskyblue",
+                        "mediumorchid2","seagreen2", "indianred2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 10 (January 2023)")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### February 2023 ##########
+# Vector of dates
+dates <- seq(as.Date("2023-02-01"), as.Date("2023-02-28"), by = "1 day")
+
+events12 <- rep(NA, 28)
+events12[c(22,23,24,25,26,27,28)] <- "2nd Visit\n (Europe Edition)"
+events12[24] <- "Queer Oxford & Brownie Sundae"
+events12[28] <- "11th Month!"
+
+# Creating the calendar
+calendR(year = 2023, month = 2,
+        start = "M",
+        special.days = events12,
+        special.col = c("pink","lightblue",
+                        "mediumpurple2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 11 (Feburary 2023)")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### March 2023 ##########
+# Vector of dates
+dates <- seq(as.Date("2023-03-01"), as.Date("2023-03-31"), by = "1 day")
+
+events13 <- rep(NA, 31)
+events13[11] <- "You in Paris!"
+events13[28] <- "Anniversary \n& Cluny Museum"
+events13[1] <- "Oxford castle \n& Prison"
+events13[2] <- "Bookstore!"
+events13[14] <- "Valen-pi-ne's Day"
+events13[16] <- "Baby Statue \nof Liberty"
+events13[13] <- "You in the ER :("
+events13[17] <- "The Louvre"
+events13[19] <- "Foucault \n& Hugo"
+events13[20] <- "Luxembourg Gardens"
+events13[23] <- "Musée d'Orsay"
+events13[24] <- "Frozen Food Feast"
+events13[25] <- "Versailles"
+events13[30] <- "St. Denis"
+events13[31] <- "Pantheon \n& Louvre"
+
+# Creating the calendar
+calendR(year = 2023, month = 3,
+        start = "M",
+        special.days = events13,
+        special.col = c("pink","seagreen2",
+                        "mediumpurple2","cyan2",
+                        "orange","yellow",
+                        "green","blue",
+                        "purple","mediumorchid2",
+                        "lightblue","goldenrod2",
+                        "deepskyblue","hotpink",
+                        "indianred2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 12 (March 2023)")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### April 2023 ##########
+# Vector of dates
+dates <- seq(as.Date("2023-04-01"), as.Date("2023-04-30"), by = "1 day")
+
+events14 <- rep(NA, 30)
+events14[1] <- "Park & Apple Bread \n& Saint Chapelle"
+events14[4] <- "Apple Bread \nPart 2"
+events14[5] <- "La Felicita"
+events14[c(6,7,8,9,10)] <- "Rome!"
+events14[7] <- "Herculaneum"
+events14[8] <- "Roman \nForum"
+events14[9] <- "Etruscan & Capitoline \n& Collosseum"
+events14[c(20,21,22,23,24,25,26,27,28,29,30)] <- "Third Visit \n(Europe Edition)"
+events14[23] <- "Lego Star Wars"
+events14[28] <- "13th Month!"
+
+# Creating the calendar
+calendR(year = 2023, month = 4,
+        start = "M",
+        special.days = events14,
+        special.col = c("pink","goldenrod2",
+                        "mediumorchid2","mediumpurple2",
+                        "indianred2","cyan2",
+                        "seagreen2","aquamarine",
+                        "deepskyblue","lightblue"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 13 (April 2023)")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+### May 2023 ##########
+# Vector of dates
+dates <- seq(as.Date("2023-05-01"), as.Date("2023-05-31"), by = "1 day")
+
+events15 <- rep(NA, 31)
+events15[c(1,2,3,4,5,6,7,8)] <- "Third Visit \n(Europe Edition)"
+events15[c(15,16,17,18,19,20,21,22,23,24,25,26,27,28)] <- "Fourth Visit \n(Europe Edition)"
+events15[26] <- "Lon-Date"
+events15[28] <- "14th Month & I Leave :("
+
+# Creating the calendar
+calendR(year = 2023, month = 5,
+        start = "M",
+        special.days = events15,
+        special.col = c("pink","mediumpurple2",
+                        "deepskyblue2", "lightblue2"), # as events
+        low.col = "white",
+        legend.pos = "bottom", # Legend position
+        legend.title = "",
+        title = "Month 14 (May 2023)")
+```
+
+
