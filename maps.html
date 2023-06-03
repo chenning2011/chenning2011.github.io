@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Maps</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.1.2/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+<link href="site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="site_libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="site_libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">One Year (+2 months) of Us <3</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Start Here</a>
+</li>
+<li>
+  <a href="about.html">Calendars</a>
+</li>
+<li>
+  <a href="dates.html">Dates</a>
+</li>
+<li>
+  <a href="graphs.html">Graphs</a>
+</li>
+<li>
+  <a href="maps.html">Maps</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Maps</h1>
+
+</div>
+
+
+<p>Where we were!</p>
+<div id="connecticut" class="section level2">
+<h2>Connecticut</h2>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4d40089573b70ac6f64c" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4d40089573b70ac6f64c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Voyager",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addAwesomeMarkers","args":[[41.5554997214422,41.553397397704,41.5544511953477,41.5585626679084,41.5598150113696,41.55476722948,41.5575183414195,41.5547672294708,41.5617132569496,41.561979089507,41.5561519332552,41.554839466295,41.5548555235228,41.561014854471,41.5601970342469,41.5584355353767,41.5554,41.561014854471,41.5584179924543],[-72.6572661867855,-72.6572661867855,-72.647355632812,-72.6558954597986,-72.6467498291141,-72.654884532812,-72.6473575463053,-72.6547987,-72.6501567597122,-72.6493105020402,-72.6576706462203,-72.6547987020404,-72.654884532812,-72.6551919999999,-72.6522808848445,-72.6549397288359,-72.6572661867855,-72.6551919999999,-72.6569979184685],{"icon":"heart","markerColor":["red","orange","green","lightblue","blue","darkpurple"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"ion"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Daddy Issues","Moderating WSA Presidential Debate","ER Trip","Space Joe","Dr. Stranger","ADP Reunion","2-Month Mondo","Reading","Town Exploration","Haircut x2","Lovers Club Fair","Fake Fancy Gnocchi","Pasta Reunion","DnD Joe","Spooky Library","Gay Greeks","Masquerade","COL Formal","Painting Show"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[41.5573283775121,-72.6503623040942],15,[]],"limits":{"lat":[41.553397397704,41.561979089507],"lng":[-72.6576706462203,-72.6467498291141]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="nyc" class="section level2">
+<h2>NYC</h2>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-48a40e6b12a8515ed1e1" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-48a40e6b12a8515ed1e1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Voyager",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addAwesomeMarkers","args":[[40.7803183310297,40.7879715351441,40.7507386612483,40.7835340934695,40.7503299178414,40.7806889347886,40.7106209113233,40.7781720440249,40.7609189484227,40.7533773366783,40.7863853996319,40.781,40.7593418725245,40.6437602355693],[-73.9748464619737,-73.9714183867204,-73.9934975443935,-73.9780147925925,-73.9859377578855,-73.963248104796,-74.0066241693121,-73.9839033863755,-73.9855704581343,-73.9819851812135,-73.9786959156127,-73.963248104796,-73.9771240444498,-73.7819634867803],{"icon":"heart","markerColor":["red","orange","green","lightblue","blue","darkpurple"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"ion"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Museum of Nautral History","1 Gnocchi for 2","Train Surprises","Cone Sharing","Pancakes and Milkshakes","The Met","Subway Exploration","Date-tist","Hadestown","Library Day/Visa Appointment","Bookstore","The Met Part 2","Little Lego Guys","Plane Date"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[40.7047412165554,-73.8870715189668],11,[]],"limits":{"lat":[40.6437602355693,40.7879715351441],"lng":[-74.0066241693121,-73.7819634867803]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="paris" class="section level2">
+<h2>Paris</h2>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9f1d66dd0302ccd12586" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-9f1d66dd0302ccd12586">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Voyager",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addAwesomeMarkers","args":[[48.8402388441685,48.8403,48.84027,48.84022,48.8437924603998,48.8502805767507,48.8611493163447,48.8677644970431,48.8468800989253,48.8601449004516,48.8411254024284,48.8050627348931,48.8529965455294,48.935593210304,48.8624158181027,48.847748144974,48.8292709137161,48.8324368322742],[2.29537272696249,2.29537272696249,2.29537272696249,2.29537272696249,2.27020178278079,2.27974849981981,2.33762569528425,2.35545554406448,2.33666518956805,2.32659358463589,2.26412504961652,2.12035539812496,2.34279334064048,2.35980374834798,2.33191562550163,2.3424384389862,2.38026437350486,2.37279729698962],{"icon":"heart","markerColor":["red","orange","green","lightblue","blue","darkpurple"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"ion"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Pizza Abroad","No Man's Sky","No Man's Sky: the Sequel","No Man's Sky: the Threequel","Valen-pi-ne's day","Baby statue of liberty","The Louvre","Foucault and Hugo","Luxembourg Gardens","Musée d'Orsay","Frozen Food Feast","Château de Versailles","Anniversary Cluny Muséum","Basilique de Saint-Denis","Pantheon + Louvre","Park + Apple Bread + Sainte Chapelle","Apple Bread Part 2","La Felicita"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[48.851931201333,2.31725090605376],11,[]],"limits":{"lat":[48.8050627348931,48.935593210304],"lng":[2.12035539812496,2.38026437350486]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="oxfordlondon" class="section level2">
+<h2>Oxford/London</h2>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-555dbb94f8f25c93b72f" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-555dbb94f8f25c93b72f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Voyager",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addAwesomeMarkers","args":[[51.7646558198796,51.7647,51.76475,51.7555608066666,51.7541148109193,51.7646,51.76477,51.7514935981476,51.7520764844082,51.7541148109193,51.76477,51.76477,51.5147669063422],[-1.25427222824343,-1.25427222824343,-1.25427222824343,-1.26005104410169,-1.25862073061085,-1.25427222824343,-1.25427222824343,-1.25703065991211,-1.26310367293814,-1.25855635759264,-1.2542725,-1.2542721,-0.0874413386181225],{"icon":"heart","markerColor":["red","orange","green","lightblue","blue","darkpurple"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"ion"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Pizza Abroad","No Man's Sky","No Man's Sky: the Sequel","Classics Day!","Libraries/Bookstore","LMH Day","No Man's Sky: the Threequel","Queer Oxford and Brownie Sundae","Oxford Castle &amp; Prison","Bookstore!","Lego Star Wars","Pizza Express + the Owl House","Lon-Date"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[51.6315838781589,-0.756269672161216],9,[]],"limits":{"lat":[51.5147669063422,51.76477],"lng":[-1.26310367293814,-0.0874413386181225]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="italy" class="section level2">
+<h2>Italy</h2>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3d8e34ff4a55bdacc6f7" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3d8e34ff4a55bdacc6f7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Voyager",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addAwesomeMarkers","args":[[40.8061004158809,41.8926699209207,41.918599569793],[14.3490228677417,12.4853357254663,12.4776741812856],{"icon":"heart","markerColor":["red","orange","green","lightblue","blue","darkpurple"],"iconColor":"white","spin":false,"squareMarker":false,"iconRotate":0,"font":"monospace","prefix":"ion"},null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["Herculaneum","Roman Forum","Etruscan + Capitoline + Collosseum"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[41.3763768138665,13.7086448684992],8,[]],"limits":{"lat":[40.8061004158809,41.918599569793],"lng":[12.4776741812856,14.3490228677417]}},"evals":[],"jsHooks":[]}</script>
+</div>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

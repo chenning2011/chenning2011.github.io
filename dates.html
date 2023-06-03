@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dates</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">One Year (+2 months) of Us <3</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Start Here</a>
+</li>
+<li>
+  <a href="about.html">Calendars</a>
+</li>
+<li>
+  <a href="dates.html">Dates</a>
+</li>
+<li>
+  <a href="graphs.html">Graphs</a>
+</li>
+<li>
+  <a href="maps.html">Maps</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Dates</h1>
+
+</div>
+
+
+<p>Here are my thoughts on all the dates we’ve ever been on and how much
+I loved each of them! Also some bonus thoughts on how much I love
+you.</p>
+<div id="date-1-daddy-issues" class="section level3">
+<h3>Date 1: Daddy Issues</h3>
+<p>Our first date! It’s wild to think about how long ago this was now.
+and how scared we were of getting caught when Allie was sitting right in
+front of us and Kat and Cameron were nearby but we held hands the whole
+time anyway. It was kinda silly that we tried to hide that under a
+jacket. I’m really glad you invited me to this because it was a super
+funny show and I had a great time watching it with you. It was also nice
+to eat pizza outside on a bench with you even though we ran into all of
+ADP at Mondo somehow. I still have “dinner with Elias :)” and “ice cream
+with Elias :)” in my calendar from that date. That was such a nice
+experience all around and a wonderful first date with you. I feel like
+it set the tone for how funny and wonderful and nice our relationship
+has been since then. I love you so much.</p>
+</div>
+<div id="date-2-wsa-debate-moderation" class="section level3">
+<h3>Date 2: WSA Debate Moderation</h3>
+<p>This was such a silly suggestion for a date but I think that’s what
+made it so fun, especially since our date ended up being published in
+The Argus then, so we were such a good couple as to even be newsworthy.
+I really enjoyed coming up with silly questions with you and dressing up
+and getting to sit with each other. It’s nice to be silly with you. It
+was also fun to be a bit serious and do a debate and then talk about how
+we felt about it (even though both of us forgot to actually vote in the
+end oops). I really like débriefing with you after we do stuff together.
+I always love hearing how you felt about stuff and seeing what we both
+liked and both disliked and where we differ too. I love your thoughts so
+much. And your silly jokes. You make me laugh so much.</p>
+</div>
+<div id="date-3-er-trip" class="section level3">
+<h3>Date 3: ER Trip</h3>
+<p>Thank you for thinking to make this a date to try and make things
+feel a lot less scary. It was kinda scary to go back to the ER, and I
+was worried about us after how bad this weekend was and the dumb stuff I
+did to get us into that place. It meant a lot to me that you still took
+me to the ER even though things were bad for you too. and that you did
+your best to spend time with me there even though I had to get a covid
+test and they kicked you out for that part. I’m sorry I have so many
+medical issues but thank you for always being so kind about them. You’re
+really good to me. Even so I hope we don’t have another ER date. I love
+spending time with you anywhere but maybe we should go somewhere else
+next time.</p>
+</div>
+<div id="date-4-space-joe" class="section level3">
+<h3>Date 4: Space Joe</h3>
+<p>My main memory from this is how incredibly freezing we were and how
+much we needed to cuddle for warmth when we got back to your room. As
+hellish as that was it was really nice to cuddle you and be so close to
+you like that. I really like being super close to you, even when it’s
+for sad reasons like being cold. And Joe is always a funny actor. I’m
+very glad that you started the trend of going to Joes for dates because
+I feel like those are always good. You always have such good date ideas.
+Thank you for being so thoughtful and so creative and for bringing to me
+to do such amaazing and fun things.</p>
+</div>
+<div id="date-5-dr.-stranger" class="section level3">
+<h3>Date 5: Dr. Stranger</h3>
+<p>When I was talking about needing to go with someone to see this
+because I was scared of the horror tag the first time I brought up the
+movie, before we were even together, I was hoping you would be the one
+to come with me. And when it ended up being a bit spooky I was really
+happy you were there with me and you let me squeeze your hand and be
+close to you and feel protected. You’re my knight in shining armor :)
+And it was a good movie. I really like when we watch movies and tv shows
+together, whether it’s in the movie theatre or just at home in bed. It’s
+nice to be able to talk to you about them and cuddle you or hold hands
+or eat ice cream.</p>
+</div>
+<div id="date-6-adp-reunion" class="section level3">
+<h3>Date 6: ADP Reunion</h3>
+<p>This was such a fun time. I know it was a lot of work too and I’m
+sorry you had to do so much to set it up and I wish I could’ve helped
+more but I’m glad I was around to help as much as I could. I really
+loved meeting the alumni with you and showing them our date wall in our
+room. It gave me hope that we could be an alumni couple some day which I
+know is pretty intense for us having been together for only a few months
+but it somehow felt a lot longer than that at the time. Even now the
+idea of us having been together both feels impossibly long and yet too
+short to really capture how close we are. Being with you just feels
+right. And like it should be a part of my life, hopefully for a while.
+It was also really nice that you were able to stay on campus longer and
+we could spend more time together before we had to be apart for the
+summer. I’m sorry I interrupted that time because I had to go see my
+dad, but I was really glad that was quick and that I was able to come
+back.</p>
+</div>
+<div id="date-7-2-month-mondo" class="section level3">
+<h3>Date 7: 2-Month Mondo</h3>
+<p>I think this was the first date I had the idea for, which is probably
+why it was kind of a boring one. I wanted to do something to celebrate
+us being together for 2 months which isn’t that long but I was happy
+about it anyway because I loved you (and still really love you) and like
+celebrating that you love me too. It was nice to eat pizza with you even
+though we ended up outside on the bench again. I don’t think we’ve ever
+actually had Mondo inside Mondo except during Anne’s party which is
+kinda weird to think about since we’ve gone a few times now. This is
+also the first date so far that I don’t have in my calendar which is
+kinda weird because I know we planned it out a bit and I remember having
+gone. I remember this being one of the last things we did together
+before we had to be long-distance, which is a bit of a sad association,
+but I’m really glad that we got to have one last date before the summer
+pulled us apart.</p>
+</div>
+<div id="date-8-museum-of-natural-history" class="section level3">
+<h3>Date 8: Museum of Natural History</h3>
+<p>I loved looking at rocks with you :) And seeing the silly Easter
+island head from the Night at the Museum movie. And just exploring the
+museum with you. I’m sorry we had to pause for me to deal with Kyle
+being locked out of his room though. I wish I could’ve paid more
+attention to you the whole time because I love you and I love going
+places with you. I know you’ve been there a ton of times too, so thank
+you for still wanting to bring me to it and show me all the things you
+like about it. I was really glad that you shared it with me.</p>
+</div>
+<div id="date-9-1-gnocchi-4-2" class="section level3">
+<h3>Date 9: 1 Gnocchi 4 2</h3>
+<p>Bella Luna! I remember the music there was kinda weird and I kept
+getting distracted by it. And how you felt weird about being college
+students who only bought one meal at the restaurant and how you thought
+they probably didn’t like us. We give them a good amount of business now
+though so I think they do like us probably. It was nice to eat out with
+you since we don’t do that a lot and it was kinda fun to be a bit
+spontaneous and get pasta randomly early before I had to take the train
+home. I really like doing things like that with you. Just deciding we
+want to do something and then doing it. It’s nice to plan things out too
+but theres something nice about liking each other enough to trust
+spontaneity.</p>
+</div>
+<div id="date-10-train-surprises" class="section level3">
+<h3>Date 10: Train Surprises</h3>
+<p>Thank you for coming to meet me at Penn Station and bringing pasta.
+It was so nice to eat with you and steal some time together before I had
+to go to New Jersey. I missed you a lot that weekend and having any time
+with you always feels really important and good. Especially now that
+we’re long distance I appreciate time with you in a really different
+way. I thought it was basically going to be the same as the summer but
+this is a lot harder. I’m glad we were able to see each other so much
+over the summer even though we were in different places most of the
+time. And that we still get a lot of time together now despite
+everything. I really love you and I love spending time with you. I’m
+excited to keep adding more dates to this list with all of the cool
+stuff we do while we’re in Europe.</p>
+</div>
+<div id="date-11-cone-sharing" class="section level3">
+<h3>Date 11: Cone Sharing</h3>
+<p>Thank you for introducing me to new food. It always makes me really
+happy when I can share stuff with you, especially when it’s stuff you
+love. It was also really nice to see the ice cream shop that you went to
+as a kid and to have you teach me the dangerous life skill of eating ice
+cream from a cone without having it drip too much. I hope that we can
+share more ice cream cones again. Strawberry and chocolate ice cream go
+pretty well together which reminds me of us because we love those things
+and each other and we go pretty well together too :)</p>
+</div>
+<div id="date-12-pancakes-and-milkshakes" class="section level3">
+<h3>Date 12: Pancakes and Milkshakes</h3>
+<p>This was another one of those fun “yeah let’s do it!” moments. I was
+happy that I got to introduce you to something that I knew from
+Singapore, since I feel like those moments are pretty rare since
+Singapore is all the way on the other side of the planet. And that we
+got to share a crazy milkshake. And that I was able to make you pancakes
+and bring them to you to have lunch together when you were going to
+school. It was really nice to be your house boyfriend over the summer. I
+really like eating with you and cooking for you. And I was glad that you
+had some time to spend with me during lunch becasue I know that course
+was really really hard and I really appreciate that you made time to
+spend with me despite everything you had to do. I wish I could’ve been
+there more to take care of you, but I was glad I was able to make you
+lunch towards the end of it at least. This date was a bit earlier on
+though. It was when my train got delayed by two hours and it was late at
+night so I decided to say I was sick and not go to class and stay an
+extra day with you. I’m really glad that I was able to get so many
+surprise long weekends with you. Every extra day means the world to
+me.</p>
+</div>
+<div id="date-13-the-met-part-1" class="section level3">
+<h3>Date 13: The Met Part 1</h3>
+<p>I was so excited to go to the Met with you. I really liked seeing
+turtle pond with you and walking thorugh Shakespeare’s garden and
+getting dressed up. I’m glad that you wanted to share the Met with me
+and you told me so much about all of the statues and that you were
+patient with me even though I had to keep sitting down on benches a lot.
+I hope it wasn’t too frustrating for you. You’re always so nice to me
+with things with my knee. I appreciate it a lot because I feel like it’s
+annoying or a burden for other people sometimes but you never make me
+feel like that. You always make me feel loved and wanted.</p>
+</div>
+<div id="date-14-subway-exploration" class="section level3">
+<h3>Date 14: Subway Exploration</h3>
+<p>Red mango! The financial district! The container store! This was so
+much fun :) Thank you for entertaining my silly idea of just travelling
+on the metro to random places. And for showing me red mango. They had
+such good frozen yogurt. The smoothie was so good too. I really
+understand why you liked it so much. I hope we can go back there
+together sometime over the summer when we’re back in the US. I hope we
+can have so many more smoothies together. Thank you for introducing me
+to so many amazing things like smoothies and the container store and so
+so many other places and foods and for being so patient with me and
+helping me try stuff. The world feels easier to navigate when we do it
+together.</p>
+</div>
+<div id="date-15-date-tist" class="section level3">
+<h3>Date 15: Date-tist</h3>
+<p>This was just silly. Still sad I didn’t get to meet your actual
+dentist. But it’s pretty amazing that you’ve got such good teeth. I’m
+proud of you for that :) Also, thank you for bringing me to things like
+your dentist appointments and other mundane parts of life. It makes me
+really happy that we get to be there for things like that for each
+other. Like we’re really connected. And we still have fun together even
+when we do things like bring you to the dentist. We must really love
+each other :)</p>
+</div>
+<div id="date-16-hadestown" class="section level3">
+<h3>Date 16: Hadestown</h3>
+<p>I know you’re not really a musical guy, so I was super surprised when
+you wanted to see Hadestown, for your birthday no less. It was really
+amazing to go to a fancy Broadway musical with you, and I was especially
+excited about you wanting to see it because it felt like a good way to
+combine our interests, even though it wasn’t really accurate to the
+original myth. Thank you for letting me rant about the technical aspects
+of the show too. I hope that you really did like coming to see this. I
+liked walking around and getting ice cream with you afterwards (twice!
+fancy rose and Ben &amp; Jerry’s) and how we kept postponing returning
+home because it didn’t feel right to call it a night yet. Going out with
+you is really fun.</p>
+</div>
+<div id="date-17-reading-together" class="section level3">
+<h3>Date 17: Reading Together</h3>
+<p>I love reading with you. It’s really nice to do things separately but
+also be together. And talking to each other about what we’re reading and
+pointing out the silly parts to make each other laugh. I wish you were
+able to read a book you wanted to read and not a book for class, but
+hopefully we’ll read together again and then we can both read fun books
+and tell each other all about them.</p>
+</div>
+<div id="date-18-town-exploration" class="section level3">
+<h3>Date 18: Town Exploration</h3>
+<p>This was a better idea in theory than in practice unfortunately :( I
+think it ended up going okay though in the end. I’m sorry it wasn’t
+better though I wish we had been able to do all the stuff we planned on
+doing.</p>
+</div>
+<div id="date-19-haicut-x2" class="section level3">
+<h3>Date 19: Haicut x2</h3>
+<p>Thank you for showing me All People’s Barbershop. And for being so
+patient with me when I was too scared to go to a barbershop. And for
+still loving me when I cut my own hair and it looked horrible. You’re
+really sweet to me and so patient and so kind and so much more than I
+could’ve ever asked for. I’m so grateful that you’re a part of my
+life.</p>
+</div>
+<div id="date-20-lovers-club-fair" class="section level3">
+<h3>Date 20: Lovers Club Fair</h3>
+<p>I really like when you have date ideas like this. Where we do normal
+things like the WSA debate moderation or a club fair and just make them
+dates because why not. It’s really fun to go on so many dates with you
+that aren’t really conventional but feel wonderful because you’re there.
+It makes whatever we’re doing seem better. Being around you makes me so
+happy, no matter where we are or what we’re doing.</p>
+</div>
+<div id="date-21-fake-fancy-gnocchi" class="section level3">
+<h3>Date 21: Fake Fancy Gnocchi</h3>
+<p>I’m proud of the silly fake fancy set-up I had for this, even though
+it ended up not working how I imagined really. It’s always nice to cook
+for you and eat with you. And it makes me really happy when you like the
+food I make. I want to eat pasta with you for a long time. I know this
+was not a Bella Luna date but it was gnocchi which reminds me of Bella
+Luna and makes me excited for us to have Bella Luna when we go back to
+the US.</p>
+</div>
+<div id="date-22-pasta-reunion" class="section level3">
+<h3>Date 22: Pasta Reunion</h3>
+<p>It was really nice to come back from Pace and eat pasta with vodka
+sauce with you. I missed you so much while I was gone and it was super
+sweet of you to go and get us pasta :) You’re so nice to me all the
+time. It’s also really nice to eat together in bed and then watch TV and
+eat ice cream and cuddle afterwards because the ice cream was too cold
+and now we’re shivering and need to warm up. I love having calm pyjama
+nights in with you. You make me so domestic and so happy. I love
+you.</p>
+</div>
+<div id="date-23-dnd-joe" class="section level3">
+<h3>Date 23: DnD Joe</h3>
+<p>Silly silly joe. Jow. Jhow? Did we ever figure out a spelling for
+that? Oh well. I liked seeing this with you. It was fun that it was
+interactive too, and that we got to joke around with the actors. They
+were really nice and fun. The cult part was silly too. I really like
+your jokes, and I was glad I got to hear a bunch when we were there in
+the beginning. I hope we get to watch a lot more Joes (Jows? Jhows?)
+together and laugh at his silly jokes. Joekes. Haha!</p>
+</div>
+<div id="date-24-spooky-library" class="section level3">
+<h3>Date 24: Spooky Library</h3>
+<p>This was a really fun spooky library tour. It was also nice to be
+able to bring Talia along, even though that kinda ruins the date factor.
+It’s normally fun when the three of us hang out and it’s always good to
+get her out and interacting with people. It was also cool to learn more
+about the library and to get grilled cheeses together. Whey stationary
+is such a fun restaurant. Thank you for showing me that. And for
+inviting me to the see the spooky library tour. I liked the staircases
+that led nowhere.</p>
+</div>
+<div id="date-25-gay-greeks" class="section level3">
+<h3>Date 25: Gay Greeks</h3>
+<p>I can’t believe how packed this talk was. It was interesting for me
+to be at though, and I’m really glad that you wanted me to come with
+you. I like learning about the things you like, and hearing your
+thoughts about things you’ve learnt that I’ve seen too. It’s always
+really cool for me to get the perspective of whoever is talking and then
+your perspective on the same topic because I feel like you know so much
+about so many things and always have cool thoughts to add. I love your
+brain.</p>
+</div>
+<div id="date-26-masquerade" class="section level3">
+<h3>Date 26: Masquerade</h3>
+<p>God was this a terrible idea. I’m glad you still love me after I
+suggested we go watch this awful awful show. I feel very lucky. It was
+just so bad. But it was incredibly fun to rant about how bad it was with
+you afterwards too. I love when we share frustrations and just keep
+ranting to each other which makes the rant continue on and get stronger
+and we have similar opinions and just get to vent our feelings about how
+horrible something is. I really love doing everything with you.</p>
+</div>
+<div id="date-27-col-formal" class="section level3">
+<h3>Date 27: COL Formal</h3>
+<p>This was such a wild event. Sometimes I still wonder about if we
+actually set off that alarm by exploring the building. Russell House is
+a really weird place, and it was fun to wander around it with you. And
+to meet your COL classmates.</p>
+</div>
+<div id="date-28-painting-show" class="section level3">
+<h3>Date 28: Painting Show</h3>
+<p>Thank you for coming to this with me even though you had a ton to do
+for astronomy and your huge final project. It was really nice to see you
+for a bit and share a smoothie. I like looking at art with you. It
+doesn’t feel nearly as interesting when I’m looking at it on my own.</p>
+</div>
+<div id="date-29-library-dayvisa-appointment" class="section level3">
+<h3>Date 29: Library Day/Visa Appointment</h3>
+<p>I’m sorry I was so stressed for most of this date, but thank you for
+letting me use your library card to print and for introducing me to the
+cool NYPL system! The libraries are so big. I still think about how the
+librarian thought we were both under 18 sometimes because it’s both
+funny and painful. Thank you for coming with me to the visa appointment
+as well. I’m sorry you had to wait outside though. You’re always really
+nice to me. I hope that I can help you as much as you help me.</p>
+</div>
+<div id="date-30-bookstore-barnes-noble-edition" class="section level3">
+<h3>Date 30: Bookstore (Barnes &amp; Noble Edition)</h3>
+<p>I’m glad we’ve had so many book related dates. It’s really fun to
+look at books with you and talk about them. I don’t really recommend
+books to anyone and it’s nice that you listen to me talk about all of
+them and sometimes spoil them if you think you probably won’t read them.
+It makes me happy when you seem interested in book plots that I’ve
+really liked too. You’re really sweet for listening to me poorly explain
+their plots. I really like hearing about the books you’ve read too,
+especially since they’re so different from what I normally read. I hope
+that someday I can read all of the books you’ve told me about because
+they all sound really cool and I think you have really good taste in
+books and I’d love to see why you enjoy the books you enjoy.</p>
+</div>
+<div id="date-31-the-met-part-2" class="section level3">
+<h3>Date 31: The Met Part 2</h3>
+<p>Thank you for pushing me around in the wheelchair, and for coming
+with me to some of the weirder exhibits like the musical instruments
+part. I hope it wasn’t boring for you to see those things, since I know
+you’ve been to the Met a lot. I really like going to museums, and
+specifically the Met, with you thought. I love seeing how excited you
+get, and learning about so many interesting things with you. It was also
+nice to be able to try out using a wheelchair with you because sometimes
+walking around is really hard and I want to be able to spend a lot of
+time with you in places that you really like. I’m sorry that it got hard
+to push me around though. I’m always happy to wheel myself too so please
+don’t feel like you have to. Thank you for helping me with it anyway. I
+liked seeing the little house part of the museum too, and it was fun
+that there was an accessible portion there. Thank you for taking me to
+see so many of the things you think are cool. I think they’re pretty
+cool too, but that you’re the coolest of all.</p>
+</div>
+<div id="date-32-little-lego-guys" class="section level3">
+<h3>Date 32: Little Lego Guys</h3>
+<p>It was so fun searching for tiny versions of us with you and
+struggling to find the perfect clothes and hair (and failing and finding
+the best available ones). I’m always really happy when I look over at
+mny desk and the lego version of you is sitting there. It feels like you
+can’t really be that far away.</p>
+</div>
+<div id="date-32-plane-date" class="section level3">
+<h3>Date 32: Plane Date</h3>
+<p>It was so sad when you had to leave in the airport, but I’m glad we
+got to have one last date in the US before we left. I liked sharing
+milkshakes and fries with you at Shake Shack, and walking around and
+looking at all the random airport things. I’m really glad you were able
+to get your wallet before we left though that was spooky. I’m also glad
+I was able to be there with you in the airport and you were there with
+me because being together is always really nice and airports are spooky
+and sad alone.</p>
+</div>
+<div id="date-34-pizza-abroad" class="section level3">
+<h3>Date 34: Pizza Abroad</h3>
+<p>I was really happy when we did this. It felt amazing to be able to
+find little things we could do together that made us feel less far
+apart. Eating different pizzas in different places at the same time was
+really nice. And pizza is really good so that probaby added to my
+happiness a bit too. I find a lot of comfort in doing things like eating
+at the same time or going to bed at the same time so I’m super glad we
+were able to start doing that with a few things sometimes. I hope it
+brings you comfort and makes me feel less far away too. The distance is
+really sad sometimes.</p>
+</div>
+<div id="date-35-no-mans-sky" class="section level3">
+<h3>Date 35: No Man’s Sky</h3>
+<p>I love that I get to see your avatar and give you little space kisses
+and explore your bases and we can show each other all the cool stuff
+we’ve found but do our own things too. Playing No Man’s Sky with you is
+super fun and I’m sorry that it gets really frustrating sometimes and
+crashes a lot when we play multiplayer and doesn’t work sometimes but I
+hope that it’s still fun for you despite those issues. If it’s not we
+don’t have to play it but I really like having something to do with you
+where I can pretend I’m looking at you.</p>
+</div>
+<div id="date-36-no-mans-sky-the-sequel" class="section level3">
+<h3>Date 36: No Man’s Sky the Sequel</h3>
+<p>Boyfriend game! Thank you so much for getting this game for me before
+we left. I really love it. Not as much as I love you, of course.</p>
+</div>
+<div id="date-37-classics-day" class="section level3">
+<h3>Date 37: Classics Day!</h3>
+<p>The Ashmolean museum is no Met, but I still really liked it. It’s
+always fun for me to go to classics related things with you because I’ll
+learn so much about the stuff you know about. It makes me never want to
+do my own research about it because I like hearing about how you explain
+it (and sometimes people believe in evil and wrong things and I don’t
+want to accidentally do that so I’m very glad that you are kind enough
+to tell about which things are super duper wrong so that I don’t fall
+into that trap).</p>
+</div>
+<div id="date-38-librariesbookstore-waterstones-edition"
+class="section level3">
+<h3>Date 38: Libraries/Bookstore (Waterstones Edition)</h3>
+<p>I’m sorry I was too tired to really go into the libraries, but they
+all looked really cool and thank you for showing me them and bringing me
+to look at the buildings and going to the bookstore with me and showing
+me cool books and buying me Orlando. I’m really happy that you share the
+books you like with me. Reading them feels like I get to see a piece of
+you.</p>
+</div>
+<div id="date-39-lmh-day" class="section level3">
+<h3>Date 39: LMH Day</h3>
+<p>Thank you for taking me to see the library and resting with me. It’s
+always really nice to cuddle you. I’m sorry I push you out of the bed
+there sometimes though. I promise I don’t mean to. If anything I would
+want to pull you onto me. Nonetheless, I really like staying in with you
+and cuddling. And feel free to give me a bit of a shove if I take up too
+much space.</p>
+</div>
+<div id="date-40-no-mans-sky-the-threequel" class="section level3">
+<h3>Date 40: No Man’s Sky the Threequel</h3>
+<p>It’s silly that we counted so many of these as dates we would have so
+so many dates if we kept doing that. Maybe we’d even get to 100 by the
+end of studying abroad. Which would be really wild. But maybe that would
+make everything else feel less special, so it’s probably better that we
+stopped counting them as dates in the end.</p>
+</div>
+<div id="date-41-queer-oxford-and-brownie-sundae"
+class="section level3">
+<h3>Date 41: Queer Oxford and Brownie Sundae</h3>
+<p>I was really surprised by how many people went to the Queer Oxford
+museum night. And also how weird the music was. And how many people were
+listening to it and seemed super into it. I know the museum was a bit
+boring but I liked wearing silly hats with you and playing the
+typhoidland games, even if they were super easy. I hope that you still
+had fun even though it wasn’t a great museum. I had fun because I was
+with you. I’m sorry I was so tired though. Thank you for taking me to
+get a hot chocolate and a brownie sundae afterwards. It was funky how
+their microwave didn’t work and the guy super burnt the brownie before
+we got a proper one. I really liked the hot chocolate and the brownie
+sundae though, and it was nice to sit and just enjoying eating ice cream
+with you. I love when we do casual fun things like that together. I hope
+we get to have lots more ice cream together.</p>
+</div>
+<div id="date-42-oxford-castle-prison" class="section level3">
+<h3>Date 42: Oxford Castle &amp; Prison</h3>
+<p>This was much more fun than I was expected! I like castles and you
+like castles so I figured it would be cool even if the tour was bad but
+Emily was silly and funny and the castle had funky prison stories and I
+liked getting our mugshots taken and then stealing pictures of them (get
+it that’s ironic because stealing is a crime). I still think about how
+whacky those stairs were though. I’m glad that neither of us fell down
+them because they were such a trick and so small and dizzying and I hope
+we do not encounter other stairs like that during our normal lives.</p>
+</div>
+<div id="date-43-bookstore-part-2-waterstones-edition"
+class="section level3">
+<h3>Date 43: Bookstore Part 2 (Waterstones Edition)</h3>
+<p>I’m sorry you were so tired for this and your phone was not with us
+that was spooky and I’m sure made it hard for you to have a lot of fun
+on this date but I hope that you enjoy the book. I’m happy that so many
+of our dates have been to bookstores, especially Waterstones, because
+it’s one of my favorites and I’m really glad to share it with you.</p>
+</div>
+<div id="date-44-valen-pi-nes-day" class="section level3">
+<h3>Date 44: Valen-pi-ne’s day</h3>
+<p>It was nice to walk the talk and eat pasta with you and celebrate a
+second Valentine’s day with you :). I was glad that we were able to find
+time to make up Valentine’s day twice since it was sad that we missed it
+this first time. I hope that we’ll be able to celebrate it on the 14th
+next year! It was fun to try the chocolates from the chocolate box with
+you again too, especially since we were attempting to remember what was
+in them. I also enjoyed hearing your commentary on the talk and the
+stories she was talking about. I always really love learning stuff from
+you, especially when it relates to other stuff we’ve done together like
+watch Thor movies which are silly and fun.</p>
+</div>
+<div id="date-45-baby-statue-of-liberty" class="section level3">
+<h3>Date 45: Baby Statue of Liberty</h3>
+<p>I can’t believe there are so many statute of liberties in France.
+It’s so wild that America just kept giving them back to France, and it’s
+really funny that this is right by your Airbnb. Thank you for telling me
+about this and taking me on a walk to go see it. I know it was hard for
+you here the first week because France is evil and made you sick but I’m
+glad we still got to do so much together and spend more time together
+because of my classes being cancelled. It’s also really nice to go on
+walks with you here. It makes me wish I could see more of Paris on my
+feet.</p>
+</div>
+<div id="date-46-the-louvre" class="section level3">
+<h3>Date 46: The Louvre</h3>
+<p>I’m glad we went to the Louvre together. Thank you for pushing me
+around this museum even though it was confusing and huge and crowded and
+we got lost so many times. I’m sorry it was so exhausting but I’m glad I
+got to buy you crepes afterwards. It was wild how we accidentally got
+caught up in strike closures while on the metro though. France was a
+really strange place to live when we were both there, but I’m glad you
+were there with me for a part of it. It didn’t feel as overwheleming
+when I knew we would go through it together.</p>
+</div>
+<div id="date-47-foucaults-pendulum-and-victor-hugos-house"
+class="section level3">
+<h3>Date 47: Foucault’s Pendulum and Victor Hugo’s House</h3>
+<p>This was such a cool museum. Thank you for showing it to me. This was
+my favorite museum that we went to out of all of the ones we went to in
+Europe together. I loved seeing the little robots and the building
+models and the pendulum. You always have such good ideas of places to go
+:) Thank you for taking pictures of things for me and coming back to
+show them to me when I was struggling.</p>
+</div>
+<div id="date-48-luxembourg-gardens" class="section level3">
+<h3>Date 48: Luxembourg Gardens</h3>
+<p>Thank you for coming to see this with me as a date even though
+technically I went for class assignments. I had wanted to go and look at
+it since I had been going to class right next to it but didn’t want to
+go alone. I’m glad we shared a baguette and looked at the statues
+together and held hands. It was a really nice moment and I really
+appreciate that you came all the way there to see me during the school
+day. I really love spending time with you however we can.</p>
+</div>
+<div id="date-49-musée-dorsay" class="section level3">
+<h3>Date 49: Musée d’Orsay</h3>
+</div>
+<div id="date-50-frozen-food-feast" class="section level3">
+<h3>Date 50: Frozen Food Feast</h3>
+<p>It’s so cute much you loved Picard. I enjoyed that we were able to
+have fun frozen food and make things fake fancy even though we had such
+a tiny kitchen</p>
+</div>
+<div id="date-51-château-de-versailles" class="section level3">
+<h3>Date 51: Château de Versailles</h3>
+<p>The petit train! It was so small and cute :) And the gardens were so
+pretty and cool even though it was cool (literally) and windy and hard
+to be outside a bit. I liked discovering that you like hot chocolate,
+but only the kinds I don’t like as much, which is another way we balance
+each other out! I also always enjoy taking the big train so it made me
+happy that we were able to take it together. I was happy that we got to
+lose the group pretty easily and just hang out with each other because I
+really wanted to spend time with you and make it a proper date.</p>
+</div>
+<div id="date-52-anniversary-cluny-museum" class="section level3">
+<h3>Date 52: Anniversary Cluny Museum</h3>
+<p>I’m really glad that there was a strike on our anniversary and I
+didn’t end up having to go to class and that we were able to go to Cluny
+instead and see a bunch of cool stuff together. I thought it was cute
+how defensive you were of the art and statutes in the museum since you
+said sometimes people think they’re simplistic or boring but you love
+them. I love how passionate you are about all the museums you want to go
+to with me :)</p>
+</div>
+<div id="date-53-basilique-de-saint-denis" class="section level3">
+<h3>Date 53: Basilique de Saint Denis</h3>
+<p>This was such a cool church. I still think about how the light was
+reflecting off the windows and onto the floor and the pews and the walls
+and how it was so pretty and colorful. I really liked seeing this with
+you. It was such a cool building and it’s really fun for me to see all
+the architectural stuff that you always tell me about.</p>
+</div>
+<div id="date-54-pantheon-louvre" class="section level3">
+<h3>Date 54: Pantheon + Louvre</h3>
+<p>Thank you for pushing me around this museum again. I know it’s really
+exhausting and hard, but it’s really sweet of you to always do it
+anyway. I liked how we got to see different parts of the Louvre. I’m
+sorry that the vase section was still closed off :( I was really excited
+for you to be able to see them after you loved your class on it so much.
+I’m also sorry for crying in the Pantheon and getting frustrated and for
+it being disappointing even though it was expensive. Thank you for being
+nice to me about it all anyway.</p>
+</div>
+<div id="date-55-park-apple-bread-saint-chapelle"
+class="section level3">
+<h3>Date 55: Park + Apple Bread + Saint Chapelle</h3>
+<p>I know you hated this church, but it was fun to go to apple bread
+with you. I liked showing you my favorite sandwich restaurant in Paris
+becuase you love sandwiches so much and I wanted you to get to have some
+good ones while you were there with me. I’m glad that you liked it too.
+I’m sorry that this date was so impromptu and we never found the train
+tracks in the park. That was a really good idea you had and I would’ve
+loved to see them with you. I hope we go to the NYC version you told me
+about some day. It’s really cute how you try to find things I’ll like
+when we go places. It makes me feel looked out for, and I hope you feel
+looked out for too. I’m sorry you’re mostly the one coming up with
+ideas. I hope that some of the stuff I’ve shown you has been good.</p>
+</div>
+<div id="date-56-apple-bread-part-2" class="section level3">
+<h3>Date 56: Apple Bread Part 2</h3>
+<p>Thank you for coming to visit me at school for our last week in Paris
+(twice!). It was really nice to have lunch with you. I’m sorry my school
+days were so incredibly long and I couldn’t really get home easily. I
+like eating with you and sharing food a lot, so it meant a lot to me
+that you would come all the way down to where I was just so we could eat
+together. I hope it wasn’t too awkward that my professor also eats there
+randomly.</p>
+</div>
+<div id="date-57-la-felicita" class="section level3">
+<h3>Date 57: La Felicita</h3>
+<p>You had lunch with me at school again :o And let me eat most of your
+fries! You are way too nice to me most of the time. I want to give you
+more of my food in return. We should always be sharing. I hope you liked
+this place, even though they didn’t really have any pasta you wanted. I
+know that was kinda disappointing and I’m sorry. You love pasta.</p>
+</div>
+<div id="date-58-herculaneum" class="section level3">
+<h3>Date 58: Herculaneum</h3>
+<p>This is probably one of my favorite dates, just because of how
+excited you were the whole time. It’s really adorable watching you get
+super into a place we’re visiting and start telling me a bunch of
+information about it :) I love learning about the stuff you love, so
+thank you for always sharing it with me. Even though the train ride was
+really long and it was hot and so much walking, it was really fun to get
+gnocchi and ice cream with you (so much ice cream!). The flavour you
+picked at the train station gelato place was really good. I’m glad that
+you’re helping me find new food I like, and always sharing it with me. I
+like learning that there are lots of things I like, way more than I
+expected, and that you like them too so we can have them together :) I
+know you’re not a big fan of day trips, but I think this one was a good
+one.</p>
+</div>
+<div id="date-59-roman-forum" class="section level3">
+<h3>Date 59: Roman Forum</h3>
+<p>This was so big and so much walking. That’s the main thing I
+remember. But the buildings were pretty cool and there was a lot to see.
+I know it wasn’t your favorite, but it was still cool that we got to go
+the museum and stuff. I’m sorry I was really upset in the museum. I
+don’t even remember why I was crying now, but I remember doing it, which
+I’m sorry for because I didn’t want to ruin the museum trip for you.
+It’s always fun to see statues and stuff together. I’m sorry my knees
+make it hard for me to keep up with you during things like this and the
+Herculaneum. I hope that it’ll be easier after I get surgery and we can
+do more stuff together.</p>
+</div>
+<div id="date-60-etruscan-capitoline-collosseum" class="section level3">
+<h3>Date 60: Etruscan + Capitoline + Collosseum</h3>
+<p>I remember doing a lot of walking for this date too, and being forced
+to sit down a couple times since it was such a long day. Rome really was
+a ton of walking. I hope that the next time we do that much walking I
+have working knees. The Etruscan museum was really fun, even though the
+staff were a bit silly and overly nice about everything and also didn’t
+speak English. I liked that there was so much we could see, and how
+happy it made you to see all of it. It was also really good that we were
+away from the crowds. I hope that helped you relax a bit more. I’m sorry
+Rome was so crowded all the time and getting tickets for stuff was so
+incredibly difficult. I hope you still enjoyed it. I enjoyed being there
+with you, and especially eating all of the gnocchi that we had. I can’t
+believe the final gnocchi date we had before we went to drop me off at
+the train station wasn’t recorded as a date :( I must have forgotten to
+ask if it was one in the midst of all the being sad. But going to that
+restaurant and eating that gnocchi was incredible, and it would be a
+shame to leave something that good off this list of cool things we did
+together while traveling.</p>
+</div>
+<div id="date-61-lego-star-wars" class="section level3">
+<h3>Date 61: Lego Star Wars</h3>
+<p>Thank you for playing this game with me so many times. I can tell
+it’s not really your favorite, and it’s okay if you’re a bit tired of
+it, but I appreciate that you played with me because I like it even if
+you don’t really. I like playing video games with you a lot. I hope we
+can find some more that you like too so we can keep playing new games
+together.</p>
+</div>
+<div id="date-62-pizza-express-the-owl-house" class="section level3">
+<h3>Date 62: Pizza Express + the Owl House</h3>
+<p>I’m glad that you liked this show :) I really liked watching the Owl
+House the first time I saw it, and I really wanted to share it with you
+because it was good and fun and gay and that’s just like us! It was
+really nice to watch it again while cuddling you and eating pizza
+together. You’re also really cute and silly for always giving me extra
+dough balls because you know I like them so much. Thank you for getting
+Pizza Express so many times while I was in Oxford even though it’s a bit
+expensive to do that often. I hope we can get Bella Luna again together
+a few times once you’re back in NYC. I like our dinner + movie/TV show
+dates a lot. Hopefully we can do a better job at coming up with stuff to
+watch, but it’s a bit hard now that we’ve sort of exhausted both of our
+lists.</p>
+</div>
+<div id="date-63-lon-date" class="section level3">
+<h3>Date 63: Lon-Date</h3>
+<p>I enjoyed going to the bank museum with you :) It was fun to get to
+see the history of the bank and do puzzles together and try to control
+inflation. It was a really nice museum, and I’m glad that we went to
+London even if the rest of the trip was disappointing. I’m sorry about
+how much the British Museum sucked. I was really excited to see more
+cool Greek and Roman art with you but British people :( I hope you don’t
+regret going. I’m also sorry about how much the bus ride sucked, but I’m
+glad that we were together for it. I hope you’ll lean on my shoulder
+many many more times and we have lots more chances to be so so sleepy,
+but preferably in a bed.</p>
+</div>
+<div id="bonus-note" class="section level3">
+<h3>Bonus Note</h3>
+<p>Writing all of these out and making the calendars and the graphs and
+the maps was a really nice way to look back on our relationship and
+realize how much I really enjoy doing stuff with you. Whether it’s
+sitting in bed watching TV or playing video games, travelling even
+though it makes us tired and grumpy, exploring a museum, watching a Jow,
+or anything else we do together, I always love being with you. Even if
+we’re tired or sad or it doesn’t go as expected, it’s nice to make
+memories with you and have things we can look back on and complain about
+together. I hope that we get to go on many many more dates. I love you
+so much. I hope that you liked our dates as much as I did.</p>
+</div>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
