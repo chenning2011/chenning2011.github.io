@@ -15,7 +15,6 @@ navbar:
       href: maps.html
 output:
   html_document:
-    theme: cerulean
     include:
       after_body: footer.html
     css: styles.css
